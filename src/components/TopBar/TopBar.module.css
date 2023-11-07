@@ -1,0 +1,22 @@
+@import "../../index.css";
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  height: 5rem;
+  padding: 2rem 1.5rem;
+  z-index: 10;
+  background-color: white;
+}
+
+.top-bar .search-bar {
+  z-index: 10;
+  border-radius: 1rem;
+  background-color: var(--light-gray);
+  & fieldset {
+    border: none;
+  }
+}

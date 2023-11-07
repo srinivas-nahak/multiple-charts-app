@@ -1,7 +1,15 @@
+import TopBar from "./components/TopBar/TopBar";
+import HomeScreen from "./screens/HomeScreen/HomeScreen";
+
 function App() {
   return (
     <>
-      <h1>Something is cooking!</h1>
+      <header>
+        <TopBar />
+      </header>
+      <main>
+        <HomeScreen />
+      </main>
     </>
   );
 }

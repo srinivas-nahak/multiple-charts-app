@@ -1,0 +1,10 @@
+@import "../../index.css";
+
+.side-bar-item-container-active {
+  background-color: var(--green);
+  color: white;
+}
+
+.side-bar-item-container-inactive:hover {
+  background-color: #dddddd;
+}
