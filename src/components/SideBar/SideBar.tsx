@@ -163,33 +163,3 @@ const SideBar = () => {
 };
 
 export default SideBar;
-
-// return (
-//     <ToggleButtonGroup orientation="vertical" sx={{ width: "20%" }}>
-//       <ToggleButton
-//         value="Dashboard"
-//         sx={{
-//           width: "100%",
-//           display: "flex",
-//           justifyContent: "flex-start",
-//           gap: "0.5rem",
-//         }}
-//       >
-//         <ViewQuiltRoundedIcon fontSize="small" sx={selectedButton === 0 ? { color: "white" } : {}} />
-//         <Typography>Dashboard</Typography>
-//       </ToggleButton>
-//       <ToggleButton
-//         value="Accounts"
-//         sx={{
-//           width: "100%",
-//           display: "flex",
-//           justifyContent: "flex-start",
-//           gap: "0.5rem",
-//           margin: "auto",
-//         }}
-//       >
-//         <AccountBalanceWalletRoundedIcon fontSize="small" sx={selectedButton === 0 ? { color: "white" } : {}} />
-//         Accounts
-//       </ToggleButton>
-//     </ToggleButtonGroup>
-//   );

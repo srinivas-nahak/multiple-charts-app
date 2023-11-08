@@ -1,5 +1,4 @@
 import { createTheme } from "@mui/material";
-import { createBreakpoints } from "@mui/system";
 
 const h6Theme = createTheme();
 h6Theme.typography.h6 = {

@@ -1,5 +1,4 @@
-import TemporaryDrawer from "./components/OptionsDrawer";
-import TopBar from "./components/TopBar/TopBar";
+import TopBar from "./components/TopBar";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import "./App.css";
 

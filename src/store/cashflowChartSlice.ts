@@ -12,7 +12,7 @@ const initialState: ChartMultipleValueType<string>[] = [
 ];
 
 const cashflowChartSlice = createSlice({
-  name: "accountChartSlice",
+  name: "cashflowChartSlice",
   initialState,
   reducers: {
     getNewCashFlowData(state) {

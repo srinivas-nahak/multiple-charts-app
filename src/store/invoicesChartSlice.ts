@@ -12,7 +12,7 @@ const initialState: ChartSingleValueType<string>[] = [
 ];
 
 const invoiceChartSlice = createSlice({
-  name: "accountChartSlice",
+  name: "invoiceChartSlice",
   initialState,
   reducers: {
     getNewInvoiceData(state) {

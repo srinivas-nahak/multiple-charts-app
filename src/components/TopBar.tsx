@@ -1,30 +1,15 @@
-import {
-  Avatar,
-  Badge,
-  IconButton,
-  InputAdornment,
-  Popover,
-  Stack,
-  TextField,
-  useMediaQuery,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Avatar, Badge, IconButton, Stack } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
-import styles from "./TopBar.module.css";
-import OptionsDrawer from "../OptionsDrawer";
+import OptionsDrawer from "./OptionsDrawer";
 import { useDispatch } from "react-redux";
-import { accountChartActions } from "../../store/accountChartSlice";
-import { invoiceChartActions } from "../../store/invoicesChartSlice";
-import { cashflowChartActions } from "../../store/cashflowChartSlice";
-import React, { useState } from "react";
+import { accountChartActions } from "../store/accountChartSlice";
+import { invoiceChartActions } from "../store/invoicesChartSlice";
+import { cashflowChartActions } from "../store/cashflowChartSlice";
+import SearchBar from "./SearchBar";
 
 const TopBar = () => {
   const dispatch = useDispatch();
-
-  const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null);
-
-  const isSmallScreen = useMediaQuery("(max-width: 550px)");
 
   const refreshData = () => {
     dispatch(accountChartActions.getNewAccountData());
@@ -32,35 +17,12 @@ const TopBar = () => {
     dispatch(cashflowChartActions.getNewCashFlowData());
   };
 
-  const searchClickHandler = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElement(event.currentTarget);
-  };
-
-  const open = Boolean(anchorElement);
-  const id = open ? "simple-popover" : undefined;
-
-  const searchBar = (
-    <TextField
-      id={styles["search-bar"]}
-      size="small"
-      InputProps={{
-        className: styles["search-bar"],
-        startAdornment: (
-          <InputAdornment position="start">
-            <SearchIcon fontSize="medium" />
-          </InputAdornment>
-        ),
-      }}
-      sx={{ "& fieldset": { border: "none" } }}
-    />
-  );
-
   return (
     <Stack
       direction="row"
       justifyContent="space-between"
       alignItems="center"
-      className={styles["top-bar"]}
+      sx={{ width: "100%" }}
     >
       <img
         src="/assiduus-logo-dark.webp"
@@ -76,15 +38,9 @@ const TopBar = () => {
         <IconButton aria-label="new-data-fetch" onClick={refreshData}>
           <CachedRoundedIcon sx={{ color: "#63b948" }} />
         </IconButton>
-        {isSmallScreen && (
-          <IconButton
-            aria-label="search-btn-phone"
-            onClick={searchClickHandler}
-          >
-            <SearchIcon sx={{ color: "black" }} />
-          </IconButton>
-        )}
-        {!isSmallScreen && searchBar}
+
+        <SearchBar />
+
         <Badge
           overlap="circular"
           badgeContent=" "
@@ -99,26 +55,6 @@ const TopBar = () => {
           sx={{ width: "2rem", height: "2rem" }}
         />
 
-        <Popover
-          className={styles["search-bar-container"]}
-          id={id}
-          open={open}
-          anchorEl={anchorElement}
-          onClose={() => setAnchorElement(null)}
-          anchorOrigin={{
-            vertical: "center",
-            horizontal: "center",
-          }}
-          sx={{
-            "& .MuiPopover-paper": {
-              borderRadius: "1rem",
-              border: "none",
-            },
-          }}
-        >
-          {searchBar}
-        </Popover>
-
         <OptionsDrawer />
       </Stack>
     </Stack>
@@ -127,6 +63,7 @@ const TopBar = () => {
 
 export default TopBar;
 
+//Using Appbar
 // return (
 //   <React.Fragment>
 //     <AppBar

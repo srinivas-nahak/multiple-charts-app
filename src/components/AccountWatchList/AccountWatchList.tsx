@@ -3,7 +3,6 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -14,37 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import { dividerStyle } from "../../utils/constant";
-import { AccountDetailsType } from "../../utils/customTypes";
 import { h6Theme } from "../../utils/fontSizeHelper";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const AccountWatchList = () => {
-  const accountDetails: AccountDetailsType[] = [
-    {
-      account: "Sales",
-      thisMonth: 1194.58,
-      ytd: 11418.29,
-    },
-    {
-      account: "Advertising",
-      thisMonth: 6879.02,
-      ytd: 9271.36,
-    },
-    {
-      account: "Inventory",
-      thisMonth: 4692.26,
-      ytd: 9768.09,
-    },
-    {
-      account: "Entertainment",
-      thisMonth: 0.0,
-      ytd: 0.0,
-    },
-    {
-      account: "Product",
-      thisMonth: 4652.1,
-      ytd: 2529.9,
-    },
-  ];
+  const accountDetails = useSelector(
+    (state: RootState) => state.accountWatchReducer
+  );
 
   return (
     <Card elevation={0} sx={{ borderRadius: "1.5rem" }}>

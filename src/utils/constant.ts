@@ -1,5 +1,5 @@
 const chartWidth = 500;
-const chartHeight = 200;
+const chartHeight = 220;
 const chartMaxValue = 20;
 const chartPadding = 20;
 

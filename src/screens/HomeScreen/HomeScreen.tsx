@@ -1,6 +1,4 @@
-import { Box, Grid, Stack, useMediaQuery } from "@mui/material";
-import styles from "./HomeScreen.module.css";
-import React from "react";
+import { Grid, Stack, useMediaQuery } from "@mui/material";
 import SideBar from "../../components/SideBar/SideBar";
 import AccountChart from "../../components/AccountChart/AccountChart";
 import InvoicesChart from "../../components/InvoicesChart/InvoicesChart";
@@ -23,9 +21,6 @@ const HomeScreen = () => {
       sx={{ marginTop: "5rem", marginLeft: isLgScreen ? "18%" : 0 }}
     >
       {isLgScreen && <SideBar />}
-      {/* <div
-        style={{ width: "100%", height: "100vh", backgroundColor: "#efeeee" }}
-      ></div> */}
 
       <div
         style={{
@@ -63,20 +58,3 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
-
-{
-  /* <Grid container spacing={2.5} alignItems="stretch">
-  <Grid item md={6} sm={12} xs={12}>
-    <AccountChart />
-  </Grid>
-  <Grid item md={6} sm={12} xs={12}>
-    <InvoicesChart />
-  </Grid>
-  <Grid item md={6} sm={12} xs={12}>
-    <CashFlowChart />
-  </Grid>
-  <Grid item md={6} sm={12} xs={12}>
-    <AccountWatchList />
-  </Grid>
-</Grid>; */
-}

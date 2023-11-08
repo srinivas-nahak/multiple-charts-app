@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { ChartSingleValueType } from "../../utils/customTypes";
+import { useEffect, useRef } from "react";
 import {
   chartHeight,
   chartPadding,

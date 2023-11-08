@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { ChartMultipleValueType } from "../../utils/customTypes";
+import { useEffect, useRef } from "react";
 import {
   chartHeight,
   chartPadding,
@@ -8,16 +7,13 @@ import {
 } from "../../utils/constant";
 import * as d3 from "d3";
 import {
-  Button,
   Card,
   CardContent,
   CardHeader,
   Divider,
   ListItemIcon,
-  ListItemText,
   MenuItem,
   MenuList,
-  Stack,
   ThemeProvider,
   Typography,
 } from "@mui/material";

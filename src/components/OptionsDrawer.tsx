@@ -1,6 +1,5 @@
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import SideBar from "./SideBar/SideBar";
 import { IconButton, useMediaQuery } from "@mui/material";
 import { useState } from "react";
