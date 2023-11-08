@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import { Button } from "@mui/base";
 import "../../styles/chartBarStyle.css";
 import {
   Card,
@@ -8,53 +7,30 @@ import {
   CardHeader,
   Divider,
   FormControl,
-  FormHelperText,
   MenuItem,
   Select,
   SelectChangeEvent,
   Stack,
+  ThemeProvider,
   Typography,
 } from "@mui/material";
 import {
   chartHeight,
-  chartMaxValue,
   chartPadding,
   chartWidth,
   dividerStyle,
+  monthNames,
 } from "../../utils/constant";
 import { ChartSingleValueType } from "../../utils/customTypes";
+import { h6Theme } from "../../utils/fontSizeHelper";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { accountChartActions } from "../../store/accountChartSlice";
 
 const AccountChart = () => {
-  const initialAccountChartData: ChartSingleValueType<number>[] = [
-    { name: 9, value: 5 },
-    { name: 10, value: 8 },
-    { name: 11, value: 9 },
-    { name: 12, value: 3 },
-    { name: 13, value: 2 },
-    { name: 14, value: 4 },
-    { name: 15, value: 6 },
-    { name: 16, value: 1 },
-    { name: 17, value: 9 },
-    { name: 18, value: 8 },
-  ];
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const [accountChartData, setAccountChartData] = useState(
-    initialAccountChartData
+  const dispatch = useDispatch();
+  const accountChartData = useSelector(
+    (state: RootState) => state.accountChartReducer
   );
 
   const [monthOption, setMonthOption] = useState(0);
@@ -63,12 +39,7 @@ const AccountChart = () => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   const changeHandler = () => {
-    setAccountChartData((currentData) => {
-      return currentData.map((data) => {
-        data.value = Math.floor(Math.random() * chartMaxValue) + 1;
-        return data;
-      });
-    });
+    dispatch(accountChartActions.getNewAccountData());
   };
 
   const optionChangeHandler = (event: SelectChangeEvent) => {
@@ -127,7 +98,7 @@ const AccountChart = () => {
   const getActions = () => {
     return (
       <Stack direction="row">
-        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
           <Select
             id="manage-options"
             name="manage-options"
@@ -139,11 +110,15 @@ const AccountChart = () => {
             }}
             sx={{ borderRadius: "0.8rem" }}
           >
-            <MenuItem value={0}>Manage</MenuItem>
-            <MenuItem value={1}>Edit</MenuItem>
+            <MenuItem value={0}>
+              <Typography variant="subtitle2">Manage</Typography>
+            </MenuItem>
+            <MenuItem value={1}>
+              <Typography variant="subtitle2">Edit</Typography>
+            </MenuItem>
           </Select>
         </FormControl>
-        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
           <Select
             id="month-options"
             name="month-options"
@@ -153,9 +128,9 @@ const AccountChart = () => {
             inputProps={{ "aria-label": "Month Options" }}
             sx={{ borderRadius: "0.8rem" }}
           >
-            {months.map((month, index) => (
+            {monthNames.map((month, index) => (
               <MenuItem value={index} key={index}>
-                {month}
+                <Typography variant="subtitle2">{month}</Typography>
               </MenuItem>
             ))}
           </Select>
@@ -167,7 +142,11 @@ const AccountChart = () => {
     <Card elevation={0} sx={{ borderRadius: "1.5rem" }}>
       <CardHeader
         action={getActions()}
-        title={<Typography variant="h6">Checking Account</Typography>}
+        title={
+          <ThemeProvider theme={h6Theme}>
+            <Typography variant="h6">Checking Account</Typography>
+          </ThemeProvider>
+        }
         sx={{ height: "2.8rem" }}
       />
       <Divider sx={dividerStyle} />

@@ -10,4 +10,26 @@ const dividerStyle = {
   height: "2px",
 };
 
-export { chartWidth, chartHeight, chartMaxValue, chartPadding, dividerStyle };
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export {
+  chartWidth,
+  chartHeight,
+  chartMaxValue,
+  chartPadding,
+  dividerStyle,
+  monthNames,
+};

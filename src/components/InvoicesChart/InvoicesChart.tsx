@@ -8,26 +8,24 @@ import {
 } from "../../utils/constant";
 import * as d3 from "d3";
 import {
-  Button,
   Card,
   CardContent,
   CardHeader,
   Divider,
-  Stack,
+  MenuItem,
+  MenuList,
+  ThemeProvider,
   Typography,
 } from "@mui/material";
+import { h6Theme } from "../../utils/fontSizeHelper";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const InvoicesChart = () => {
-  const initialInvoicesData: ChartSingleValueType<string>[] = [
-    { name: "older", value: 5 },
-    { name: "Jan 01-08", value: 8 },
-    { name: "Jan 09-16", value: 9 },
-    { name: "Jan 17-24", value: 3 },
-    { name: "Jan 25-31", value: 2 },
-    { name: "Future", value: 4 },
-  ];
+  const invoiceChartData = useSelector(
+    (state: RootState) => state.invoiceChartReducer
+  );
 
-  const [invoiceChartData, setInvoiceChartData] = useState(initialInvoicesData);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -45,16 +43,18 @@ const InvoicesChart = () => {
       .range([chartHeight - chartPadding, chartPadding]);
 
     //Drawing bars
-    d3.select(".invoice-bars").remove();
+    d3.selectAll(".invoice-bars").remove();
     d3.select(svgRef.current)
       .selectAll(".invoice-bars")
       .data(invoiceChartData)
       .enter()
       .append("rect")
+      .attr("class", "invoice-bars")
       .attr("x", (data) => xScale(data.name)! + chartPadding / 2)
       .attr("y", (data) => yScale(data.value))
       .attr("width", xScale.bandwidth() - chartPadding)
       .attr("height", (data) => yScale(0) - yScale(data.value))
+      .attr("fill", "#63b948")
       .attr("rx", 5);
 
     //Drawing axis
@@ -72,24 +72,27 @@ const InvoicesChart = () => {
     <Card elevation={0} sx={{ borderRadius: "1.5rem" }}>
       <CardHeader
         action={
-          <Stack alignItems="center" justifyContent="center" direction="column">
-            <Button
-              disableElevation
-              size="small"
+          <MenuList>
+            <MenuItem
               sx={{
-                alignSelf: "center",
-                color: "#0089C0",
                 backgroundColor: "#efeeee",
                 borderRadius: "0.8rem",
-                display: "flex",
+                marginRight: "1rem",
               }}
             >
-              New Sales Invoice
-            </Button>
-          </Stack>
+              <Typography variant="subtitle2">New Sales Invoice</Typography>
+            </MenuItem>
+          </MenuList>
         }
-        title={<Typography variant="h6">Invoices owned to you</Typography>}
-        sx={{ flex: 1, height: "2.8rem", alignItems: "center" }}
+        title={
+          <ThemeProvider theme={h6Theme}>
+            <Typography variant="h6">Invoices owned to you</Typography>
+          </ThemeProvider>
+        }
+        sx={{
+          height: "2.8rem",
+          display: "flex",
+        }}
       />
       <Divider sx={dividerStyle} />
       <CardContent>

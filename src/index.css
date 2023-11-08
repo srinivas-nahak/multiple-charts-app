@@ -14,7 +14,7 @@
   -webkit-text-size-adjust: 100%;
 
   --green: #63b948;
-  --gray: #8e8e8e;
+  --gray: #ababab;
   --light-gray: #e6e6e6;
   --border-radius: 1.5rem;
 }
@@ -29,6 +29,8 @@ a:hover {
 }
 
 body {
+  margin: 0;
+  padding: 0;
   min-width: 320px;
   min-height: 100vh;
 }

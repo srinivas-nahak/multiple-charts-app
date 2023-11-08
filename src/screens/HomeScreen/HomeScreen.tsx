@@ -1,40 +1,60 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Grid, Stack, useMediaQuery } from "@mui/material";
 import styles from "./HomeScreen.module.css";
 import React from "react";
-import Grid from "@mui/material/Unstable_Grid2";
 import SideBar from "../../components/SideBar/SideBar";
 import AccountChart from "../../components/AccountChart/AccountChart";
 import InvoicesChart from "../../components/InvoicesChart/InvoicesChart";
 import CashFlowChart from "../../components/CashFlowChart/CashFlowChart";
+import AccountWatchList from "../../components/AccountWatchList/AccountWatchList";
 
 const HomeScreen = () => {
+  const isLgScreen = useMediaQuery("(min-width: 1280px)");
+
+  const section = {
+    height: "100%",
+    paddingTop: 0,
+    backgroundColor: "#fff",
+    borderRadius: "1.5rem",
+  };
+
   return (
-    <Stack direction="row" sx={{ marginTop: "5rem", marginLeft: "18%" }}>
-      <SideBar />
+    <Stack
+      direction="row"
+      sx={{ marginTop: "5rem", marginLeft: isLgScreen ? "18%" : 0 }}
+    >
+      {isLgScreen && <SideBar />}
       {/* <div
         style={{ width: "100%", height: "100vh", backgroundColor: "#efeeee" }}
       ></div> */}
 
       <div
         style={{
-          width: "100%",
+          position: "relative",
           height: "max-content",
           padding: "1.5rem",
           backgroundColor: "#efeeee",
         }}
       >
-        <Grid container spacing={2.5}>
-          <Grid xs={6}>
-            <AccountChart />
+        <Grid container spacing={2.5} alignItems="stretch">
+          <Grid item md={6} sm={12} xs={12}>
+            <div style={section}>
+              <AccountChart />
+            </div>
           </Grid>
-          <Grid xs={6}>
-            <InvoicesChart />
+          <Grid item md={6} sm={12} xs={12}>
+            <div style={section}>
+              <InvoicesChart />
+            </div>
           </Grid>
-          <Grid xs={6}>
-            <CashFlowChart />
+          <Grid item md={6} sm={12} xs={12}>
+            <div style={section}>
+              <CashFlowChart />
+            </div>
           </Grid>
-          <Grid xs={6}>
-            <AccountChart />
+          <Grid item md={6} sm={12} xs={12}>
+            <div style={section}>
+              <AccountWatchList />
+            </div>
           </Grid>
         </Grid>
       </div>
@@ -43,3 +63,20 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
+
+{
+  /* <Grid container spacing={2.5} alignItems="stretch">
+  <Grid item md={6} sm={12} xs={12}>
+    <AccountChart />
+  </Grid>
+  <Grid item md={6} sm={12} xs={12}>
+    <InvoicesChart />
+  </Grid>
+  <Grid item md={6} sm={12} xs={12}>
+    <CashFlowChart />
+  </Grid>
+  <Grid item md={6} sm={12} xs={12}>
+    <AccountWatchList />
+  </Grid>
+</Grid>; */
+}

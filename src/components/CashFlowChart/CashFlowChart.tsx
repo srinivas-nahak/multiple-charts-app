@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  ChartMultipleValueType,
-  ChartSingleValueType,
-} from "../../utils/customTypes";
+import { ChartMultipleValueType } from "../../utils/customTypes";
 import {
   chartHeight,
   chartPadding,
@@ -16,22 +13,24 @@ import {
   CardContent,
   CardHeader,
   Divider,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
   Stack,
+  ThemeProvider,
   Typography,
 } from "@mui/material";
+import SquareRoundedIcon from "@mui/icons-material/SquareRounded";
+import { h6Theme } from "../../utils/fontSizeHelper";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const CashFlowChart = () => {
-  const initialCashFlowData: ChartMultipleValueType<string>[] = [
-    { name: "August", inValue: 5, outValue: 2 },
-    { name: "September", inValue: 8, outValue: 6 },
-    { name: "October", inValue: 9, outValue: 7 },
-    { name: "November", inValue: 3, outValue: 1 },
-    { name: "December", inValue: 2, outValue: 1 },
-    { name: "January", inValue: 4, outValue: 3 },
-  ];
+  const cashflowChartData = useSelector(
+    (state: RootState) => state.cashflowChartReducer
+  );
 
-  const [cashflowChartData, setCashflowChartData] =
-    useState(initialCashFlowData);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -49,36 +48,39 @@ const CashFlowChart = () => {
       .range([chartHeight - chartPadding, chartPadding]);
 
     //Drawing bars
-    d3.select(".cashflow-outer-bars").remove();
+    d3.selectAll(".cashflow-outer-bars").remove();
+    d3.selectAll(".cashflow-inner-bars").remove();
+
     d3.select(svgRef.current)
       .selectAll(".cashflow-outer-bars")
       .data(cashflowChartData)
       .enter()
       .append("rect")
+      .attr("class", "cashflow-outer-bars")
       .attr("x", (data) => xScale(data.name)! + chartPadding / 2)
       .attr("y", (data) => yScale(data.inValue))
       .attr("width", xScale.bandwidth() - chartPadding)
       .attr("height", (data) => yScale(0) - yScale(data.inValue))
-      .attr("fill", "blue")
+      .attr("fill", "#4b9435")
       .attr("rx", 5);
 
-    d3.select(".cashflow-inner-bars").remove();
     d3.select(svgRef.current)
       .selectAll(".cashflow-inner-bars")
       .data(cashflowChartData)
       .enter()
       .append("rect")
+      .attr("class", "cashflow-inner-bars")
       .attr("x", (data) => xScale(data.name)! + chartPadding / 2)
       .attr("y", (data) => yScale(data.outValue))
       .attr("width", xScale.bandwidth() - chartPadding)
       .attr("height", (data) => yScale(0) - yScale(data.outValue))
-      .attr("fill", "pink")
+      .attr("fill", "#63b948")
       .attr("rx", 5);
 
     //Drawing axis
     const xAxis = d3.axisBottom(xScale);
 
-    d3.select("#x-axis-invoice").remove();
+    d3.select("#x-axis-cashflow").remove();
     d3.select(svgRef.current)
       .append("g")
       .attr("id", "x-axis-invoice")
@@ -90,23 +92,31 @@ const CashFlowChart = () => {
     <Card elevation={0} sx={{ borderRadius: "1.5rem" }}>
       <CardHeader
         action={
-          <Stack alignItems="center" justifyContent="center" direction="column">
-            <Button
-              disableElevation
-              size="small"
-              sx={{
-                alignSelf: "center",
-                color: "#0089C0",
-                backgroundColor: "#efeeee",
-                borderRadius: "0.8rem",
-                display: "flex",
-              }}
-            >
-              New Sales Invoice
-            </Button>
-          </Stack>
+          <MenuList
+            sx={{
+              display: "flex",
+              pointerEvents: "none",
+            }}
+          >
+            <MenuItem>
+              <ListItemIcon>
+                <SquareRoundedIcon sx={{ color: "#4b9435" }} />
+              </ListItemIcon>
+              <Typography variant="subtitle2">In</Typography>
+            </MenuItem>
+            <MenuItem>
+              <ListItemIcon>
+                <SquareRoundedIcon sx={{ color: "#63b948" }} />
+              </ListItemIcon>
+              <Typography variant="subtitle2">Out</Typography>
+            </MenuItem>
+          </MenuList>
         }
-        title={<Typography variant="h6">Total Cash Flow</Typography>}
+        title={
+          <ThemeProvider theme={h6Theme}>
+            <Typography variant="h6">Total Cash Flow</Typography>
+          </ThemeProvider>
+        }
         sx={{ flex: 1, height: "2.8rem", alignItems: "center" }}
       />
       <Divider sx={dividerStyle} />

@@ -8,3 +8,9 @@ export type ChartMultipleValueType<T> = {
   inValue: number;
   outValue: number;
 };
+
+export type AccountDetailsType = {
+  account: string;
+  thisMonth: number;
+  ytd: number;
+};
