@@ -80,7 +80,7 @@ const CashFlowChart = () => {
     d3.select("#x-axis-cashflow").remove();
     d3.select(svgRef.current)
       .append("g")
-      .attr("id", "x-axis-invoice")
+      .attr("id", "x-axis-cashflow")
       .attr(
         "transform",
         `translate(${-chartSpacer},${chartHeight - chartPadding})`
