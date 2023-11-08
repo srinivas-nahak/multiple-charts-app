@@ -7,6 +7,7 @@ import { accountChartActions } from "../store/accountChartSlice";
 import { invoiceChartActions } from "../store/invoicesChartSlice";
 import { cashflowChartActions } from "../store/cashflowChartSlice";
 import SearchBar from "./SearchBar";
+import { accountWatchActions } from "../store/accountWatchSlice";
 
 const TopBar = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const TopBar = () => {
     dispatch(accountChartActions.getNewAccountData());
     dispatch(invoiceChartActions.getNewInvoiceData());
     dispatch(cashflowChartActions.getNewCashFlowData());
+    dispatch(accountWatchActions.getNewAccountWatchData());
   };
 
   return (

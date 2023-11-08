@@ -38,15 +38,18 @@ const accountWatchSlice = createSlice({
         const percentageChange = Math.random() * 0.2 - 0.1; // Range of -10% to +10%
         const newThisMonthValue = data.thisMonth * (1 + percentageChange);
 
-        const ytdPercentageChange = newThisMonthValue / data.ytd - 1;
+        const ytdPercentageChange =
+          data.ytd === 0 ? 0 : newThisMonthValue / data.ytd;
         const newYtd = data.ytd * (1 + ytdPercentageChange);
 
         return {
           ...data,
-          thisMonth: newThisMonthValue,
-          ytd: newYtd,
+          thisMonth: Number(newThisMonthValue.toFixed(2)),
+          ytd: Number(newYtd.toFixed(2)),
         };
       });
+
+      return tempData;
     },
   },
 });
