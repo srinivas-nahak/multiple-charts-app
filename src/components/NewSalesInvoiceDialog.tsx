@@ -25,9 +25,10 @@ const NewSalesInvoiceDialog = () => {
       <MenuList>
         <MenuItem
           sx={{
-            backgroundColor: "#efeeee",
+            backgroundColor: "#e6e6e6",
             borderRadius: "0.8rem",
             marginRight: "1rem",
+            color: "#63b948",
           }}
           onClick={handleOpen}
         >

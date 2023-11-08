@@ -28,6 +28,18 @@ customTheme.typography.subtitle2 = {
   fontWeight: "600",
 };
 
+customTheme.components = {
+  MuiIconButton: {
+    styleOverrides: {
+      root: {
+        "&:focus": {
+          outline: "2px solid #e6e6e6",
+        },
+      },
+    },
+  },
+};
+
 export { customTheme };
 
 // const breakpoints = createBreakpoints({});

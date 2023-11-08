@@ -39,7 +39,6 @@ const SideBar = () => {
             }
           : {}
       }
-      dense
     >
       <ListItem
         onClick={() => itemClickHandler(0)}
