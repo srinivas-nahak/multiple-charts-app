@@ -31,7 +31,7 @@ const SideBar = () => {
           ? {
               width: "18%",
               height: "100vh",
-              paddingTop: "2rem",
+              paddingTop: "2.15rem",
               position: "fixed",
               left: 0,
               boxSizing: "border-box",
