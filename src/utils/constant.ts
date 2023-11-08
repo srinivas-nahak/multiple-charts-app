@@ -1,7 +1,9 @@
 const chartWidth = 500;
-const chartHeight = 220;
+const chartHeight = 225;
 const chartMaxValue = 20;
 const chartPadding = 20;
+const chartBarPadding = 0.58;
+const chartSpacer = 50;
 
 const dividerStyle = {
   backgroundColor: "#eee",
@@ -29,6 +31,8 @@ export {
   chartWidth,
   chartHeight,
   chartMaxValue,
+  chartSpacer,
+  chartBarPadding,
   chartPadding,
   dividerStyle,
   monthNames,

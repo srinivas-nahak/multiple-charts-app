@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
 import {
+  chartBarPadding,
   chartHeight,
   chartPadding,
+  chartSpacer,
   chartWidth,
   dividerStyle,
 } from "../../utils/constant";
@@ -11,14 +13,12 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  MenuItem,
-  MenuList,
-  ThemeProvider,
   Typography,
 } from "@mui/material";
-import { h6Theme } from "../../utils/fontSizeHelper";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import NewSalesInvoiceDialog from "../NewSalesInvoiceDialog";
+import "../../styles/chartBarStyle.css";
 
 const InvoicesChart = () => {
   const invoiceChartData = useSelector(
@@ -32,8 +32,8 @@ const InvoicesChart = () => {
     const xScale = d3
       .scaleBand()
       .domain(invoiceChartData.map((data) => data.name))
-      .range([chartPadding, chartWidth - chartPadding])
-      .padding(0.5);
+      .range([chartPadding, chartSpacer * 2 + chartWidth - chartPadding])
+      .padding(chartBarPadding);
 
     const yScale = d3
       .scaleLinear()
@@ -49,7 +49,7 @@ const InvoicesChart = () => {
       .enter()
       .append("rect")
       .attr("class", "invoice-bars")
-      .attr("x", (data) => xScale(data.name)! + chartPadding / 2)
+      .attr("x", (data) => xScale(data.name)! + chartPadding / 2 - chartSpacer)
       .attr("y", (data) => yScale(data.value))
       .attr("width", xScale.bandwidth() - chartPadding)
       .attr("height", (data) => yScale(0) - yScale(data.value))
@@ -63,31 +63,18 @@ const InvoicesChart = () => {
     d3.select(svgRef.current)
       .append("g")
       .attr("id", "x-axis-invoice")
-      .attr("transform", `translate(0,${chartHeight - chartPadding})`)
+      .attr(
+        "transform",
+        `translate(${-chartSpacer},${chartHeight - chartPadding})`
+      )
       .call(xAxis);
   }, [invoiceChartData]);
 
   return (
     <Card elevation={0} sx={{ borderRadius: "1.5rem" }}>
       <CardHeader
-        action={
-          <MenuList>
-            <MenuItem
-              sx={{
-                backgroundColor: "#efeeee",
-                borderRadius: "0.8rem",
-                marginRight: "1rem",
-              }}
-            >
-              <Typography variant="subtitle2">New Sales Invoice</Typography>
-            </MenuItem>
-          </MenuList>
-        }
-        title={
-          <ThemeProvider theme={h6Theme}>
-            <Typography variant="h6">Invoices owned to you</Typography>
-          </ThemeProvider>
-        }
+        action={<NewSalesInvoiceDialog />}
+        title={<Typography variant="h6">Invoices owned to you</Typography>}
         sx={{
           height: "2.8rem",
           display: "flex",

@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
 import {
+  chartBarPadding,
   chartHeight,
   chartPadding,
+  chartSpacer,
   chartWidth,
   dividerStyle,
 } from "../../utils/constant";
@@ -14,13 +16,12 @@ import {
   ListItemIcon,
   MenuItem,
   MenuList,
-  ThemeProvider,
   Typography,
 } from "@mui/material";
 import SquareRoundedIcon from "@mui/icons-material/SquareRounded";
-import { h6Theme } from "../../utils/fontSizeHelper";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import "../../styles/chartBarStyle.css";
 
 const CashFlowChart = () => {
   const cashflowChartData = useSelector(
@@ -34,8 +35,8 @@ const CashFlowChart = () => {
     const xScale = d3
       .scaleBand()
       .domain(cashflowChartData.map((data) => data.name))
-      .range([chartPadding, chartWidth - chartPadding])
-      .padding(0.5);
+      .range([chartPadding, chartSpacer * 2 + chartWidth - chartPadding])
+      .padding(chartBarPadding);
 
     const yScale = d3
       .scaleLinear()
@@ -53,7 +54,7 @@ const CashFlowChart = () => {
       .enter()
       .append("rect")
       .attr("class", "cashflow-outer-bars")
-      .attr("x", (data) => xScale(data.name)! + chartPadding / 2)
+      .attr("x", (data) => xScale(data.name)! + chartPadding / 2 - chartSpacer)
       .attr("y", (data) => yScale(data.inValue))
       .attr("width", xScale.bandwidth() - chartPadding)
       .attr("height", (data) => yScale(0) - yScale(data.inValue))
@@ -66,7 +67,7 @@ const CashFlowChart = () => {
       .enter()
       .append("rect")
       .attr("class", "cashflow-inner-bars")
-      .attr("x", (data) => xScale(data.name)! + chartPadding / 2)
+      .attr("x", (data) => xScale(data.name)! + chartPadding / 2 - chartSpacer)
       .attr("y", (data) => yScale(data.outValue))
       .attr("width", xScale.bandwidth() - chartPadding)
       .attr("height", (data) => yScale(0) - yScale(data.outValue))
@@ -80,7 +81,10 @@ const CashFlowChart = () => {
     d3.select(svgRef.current)
       .append("g")
       .attr("id", "x-axis-invoice")
-      .attr("transform", `translate(0,${chartHeight - chartPadding})`)
+      .attr(
+        "transform",
+        `translate(${-chartSpacer},${chartHeight - chartPadding})`
+      )
       .call(xAxis);
   }, [cashflowChartData]);
 
@@ -108,11 +112,7 @@ const CashFlowChart = () => {
             </MenuItem>
           </MenuList>
         }
-        title={
-          <ThemeProvider theme={h6Theme}>
-            <Typography variant="h6">Total Cash Flow</Typography>
-          </ThemeProvider>
-        }
+        title={<Typography variant="h6">Total Cash Flow</Typography>}
         sx={{ flex: 1, height: "2.8rem", alignItems: "center" }}
       />
       <Divider sx={dividerStyle} />

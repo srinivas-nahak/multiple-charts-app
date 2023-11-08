@@ -1,28 +1,38 @@
 import { createTheme } from "@mui/material";
 
-const h6Theme = createTheme();
-h6Theme.typography.h6 = {
-  fontSize: "1.2rem",
-  fontWeight: 500,
-  [h6Theme.breakpoints.up("xs")]: {
+const customTheme = createTheme();
+
+customTheme.typography.h5 = {
+  fontWeight: "700",
+  [customTheme.breakpoints.down("sm")]: {
     fontSize: "1rem",
   },
-  [h6Theme.breakpoints.up("sm")]: {
-    fontSize: "1rem",
-  },
-  [h6Theme.breakpoints.up("md")]: {
-    fontSize: "1rem",
-  },
-  [h6Theme.breakpoints.up("lg")]: {
-    fontSize: "1.2rem",
+  [customTheme.breakpoints.up("sm")]: {
+    fontSize: "1.5rem",
   },
 };
 
-export { h6Theme };
+customTheme.typography.h6 = {
+  fontSize: "1.2rem",
+  fontWeight: "bold",
+  [customTheme.breakpoints.up("xs")]: {
+    fontSize: "1rem",
+  },
+  [customTheme.breakpoints.up("sm")]: {
+    fontSize: "1.1rem",
+  },
+};
+
+customTheme.typography.subtitle2 = {
+  fontSize: "0.8rem",
+  fontWeight: "600",
+};
+
+export { customTheme };
 
 // const breakpoints = createBreakpoints({});
 
-// const h6Theme = createTheme({
+// const customTheme = createTheme({
 //   typography: {
 //     h6: {
 //       fontSize: "1.5rem",

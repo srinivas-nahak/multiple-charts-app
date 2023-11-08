@@ -11,7 +11,6 @@ import {
   Select,
   SelectChangeEvent,
   Stack,
-  ThemeProvider,
   Typography,
 } from "@mui/material";
 import {
@@ -22,10 +21,10 @@ import {
   monthNames,
 } from "../../utils/constant";
 import { ChartSingleValueType } from "../../utils/customTypes";
-import { h6Theme } from "../../utils/fontSizeHelper";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { accountChartActions } from "../../store/accountChartSlice";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
 const AccountChart = () => {
   const dispatch = useDispatch();
@@ -108,6 +107,7 @@ const AccountChart = () => {
             inputProps={{
               "aria-label": "Manage Options",
             }}
+            IconComponent={KeyboardArrowDownRoundedIcon}
             sx={{ borderRadius: "0.8rem" }}
           >
             <MenuItem value={0}>
@@ -126,6 +126,7 @@ const AccountChart = () => {
             onChange={optionChangeHandler}
             displayEmpty
             inputProps={{ "aria-label": "Month Options" }}
+            IconComponent={KeyboardArrowDownRoundedIcon}
             sx={{ borderRadius: "0.8rem" }}
           >
             {monthNames.map((month, index) => (
@@ -142,11 +143,7 @@ const AccountChart = () => {
     <Card elevation={0} sx={{ borderRadius: "1.5rem" }}>
       <CardHeader
         action={getActions()}
-        title={
-          <ThemeProvider theme={h6Theme}>
-            <Typography variant="h6">Checking Account</Typography>
-          </ThemeProvider>
-        }
+        title={<Typography variant="h6">Checking Account</Typography>}
         sx={{ height: "2.8rem" }}
       />
       <Divider sx={dividerStyle} />

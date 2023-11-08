@@ -25,7 +25,10 @@ const SearchBar = () => {
       id="search-bar"
       size="small"
       InputProps={{
-        style: { borderRadius: "1rem", backgroundColor: "#e6e6e6" },
+        style: {
+          borderRadius: "1rem",
+          backgroundColor: "#e6e6e6",
+        },
         startAdornment: (
           <InputAdornment position="start">
             <SearchIcon fontSize="medium" />

@@ -9,11 +9,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  ThemeProvider,
   Typography,
 } from "@mui/material";
 import { dividerStyle } from "../../utils/constant";
-import { h6Theme } from "../../utils/fontSizeHelper";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
@@ -25,11 +23,7 @@ const AccountWatchList = () => {
   return (
     <Card elevation={0} sx={{ borderRadius: "1.5rem" }}>
       <CardHeader
-        title={
-          <ThemeProvider theme={h6Theme}>
-            <Typography variant="h6">Account Watchlist</Typography>
-          </ThemeProvider>
-        }
+        title={<Typography variant="h6">Account Watchlist</Typography>}
         sx={{
           height: "2.8rem",
         }}
