@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   chartBarPadding,
   chartHeight,
@@ -13,6 +13,7 @@ import {
   CardContent,
   CardHeader,
   Divider,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -21,11 +22,26 @@ import NewSalesInvoiceDialog from "../NewSalesInvoiceDialog";
 import "../../styles/chartBarStyle.css";
 
 const InvoicesChart = () => {
+  const [selectedBar, setSelectedBar] = useState("");
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+
   const invoiceChartData = useSelector(
     (state: RootState) => state.invoiceChartReducer
   );
 
   const svgRef = useRef<SVGSVGElement | null>(null);
+
+  const hoverStartHandler = (
+    event: React.MouseEvent<SVGSVGElement>,
+    data: any
+  ) => {
+    const newData = data as { name: string; value: number };
+
+    const formattedData = `Date:${newData.name} Invoices:${newData.value}`;
+
+    setTooltipPosition({ x: event.clientX, y: event.clientY });
+    setSelectedBar(formattedData);
+  };
 
   useEffect(() => {
     //Defining Scales
@@ -56,6 +72,8 @@ const InvoicesChart = () => {
       .attr("fill", "#63b948")
       .attr("rx", 5);
 
+    d3.selectAll(".invoice-bars").on("mouseenter", hoverStartHandler);
+
     //Drawing axis
     const xAxis = d3.axisBottom(xScale);
 
@@ -82,7 +100,36 @@ const InvoicesChart = () => {
       />
       <Divider sx={dividerStyle} />
       <CardContent>
-        <svg ref={svgRef} viewBox={`0 0 ${chartWidth} ${chartHeight}`} />
+        <Tooltip
+          title={selectedBar}
+          id="tooltip"
+          PopperProps={{
+            style: {
+              color: "red",
+              maxWidth: 220,
+            },
+            anchorEl: {
+              getBoundingClientRect: () => {
+                return new DOMRect(tooltipPosition.x, tooltipPosition.y, 0, 0);
+              },
+            },
+          }}
+          componentsProps={{
+            tooltip: {
+              sx: {
+                bgcolor: "#396f28",
+                color: "white",
+                minWidth: "5rem",
+                padding: "0.8rem",
+                fontSize: "0.8rem",
+              },
+            },
+          }}
+          followCursor
+          color="inherit"
+        >
+          <svg ref={svgRef} viewBox={`0 0 ${chartWidth} ${chartHeight}`} />
+        </Tooltip>
       </CardContent>
     </Card>
   );

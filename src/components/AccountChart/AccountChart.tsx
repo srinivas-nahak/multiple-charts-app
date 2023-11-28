@@ -92,6 +92,10 @@ const AccountChart = () => {
       .attr("id", "x-axis-account")
       .attr("transform", `translate(0,${chartHeight - chartPadding})`)
       .call(xAxis);
+
+    window.addEventListener("mouseenter", (e) => {
+      console.log(e);
+    });
   }, [accountChartData]);
 
   const getActions = () => {
