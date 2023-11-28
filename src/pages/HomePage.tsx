@@ -1,11 +1,11 @@
 import { Grid, Stack, useMediaQuery } from "@mui/material";
-import SideBar from "../../components/SideBar/SideBar";
-import AccountChart from "../../components/AccountChart/AccountChart";
-import InvoicesChart from "../../components/InvoicesChart/InvoicesChart";
-import CashFlowChart from "../../components/CashFlowChart/CashFlowChart";
-import AccountWatchList from "../../components/AccountWatchList/AccountWatchList";
+import SideBar from "../components/SideBar/SideBar";
+import AccountChart from "../components/AccountChart/AccountChart";
+import InvoicesChart from "../components/InvoicesChart/InvoicesChart";
+import CashFlowChart from "../components/CashFlowChart/CashFlowChart";
+import AccountWatchList from "../components/AccountWatchList/AccountWatchList";
 
-const HomeScreen = () => {
+const HomePage = () => {
   const isLgScreen = useMediaQuery("(min-width: 1280px)");
 
   const section = {
@@ -57,4 +57,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default HomePage;

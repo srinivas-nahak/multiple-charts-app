@@ -1,6 +1,6 @@
 import TopBar from "./components/TopBar";
-import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import "./App.css";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
         <TopBar />
       </header>
       <main>
-        <HomeScreen />
+        <HomePage />
       </main>
     </>
   );
